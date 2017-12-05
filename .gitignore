@@ -1,0 +1,5 @@
+rpm6/*
+rpm7/*
+*.tar.gz
+*.spec
+pkg

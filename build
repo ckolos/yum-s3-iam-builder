@@ -1,0 +1,23 @@
+#!/bin/bash
+if [[ "$1" -eq "6" ]]; then
+  sed -e 's/elREPLACE_THIS/el6/' pkg.template > pkg
+  chmod 755 pkg
+  test -d ./rpm6 || mkdir -p ./rpm6
+  docker run \
+    -v $PWD:/srv \
+    -v $PWD/rpm6:/home/builder/rpm \
+    ckolos/rpmbuilder6
+else 
+  if [[ "$1" -eq "7" ]]; then
+    sed -e 's/elREPLACE_THIS/el7/' pkg.template > pkg
+    chmod 755 pkg
+  test -d ./rpm7 || mkdir -p ./rpm7
+    docker run \
+      -v $PWD:/srv \
+      -v $PWD/rpm7:/home/builder/rpm \
+      ckolos/rpmbuilder7
+  else
+    echo "Error: You must specify 6 or 7"
+    exit
+  fi
+fi

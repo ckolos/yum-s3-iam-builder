@@ -1,0 +1,8 @@
+#!/bin/bash
+VERSION=1.2.3
+FILE="v${VERSION}.tar.gz"
+cd /srv
+curl --location --remote-name "https://github.com/ckolos/yum-s3-iam/archive/${FILE}"
+test -f "$FILE" && mv "$FILE" /home/builder/rpm/yum-s3-iam-${VERSION}.tar.gz
+curl --location --remote-name https://raw.githubusercontent.com/ckolos/yum-s3-iam/v${VERSION}/yum-plugin-s3-iam.spec \
+  && rpmbuild -bb -D "name yum-s3-iam" -D "version ${VERSION}" -D "release 1.elREPLACE_THIS" yum-plugin-s3-iam.spec
